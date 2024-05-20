@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script>
+        function showDescription() {
+            document.getElementById('product-description').style.display = 'block';
+            document.getElementById('product-reviews').style.display = 'none';
+            document.getElementById('comment-form').style.display = 'none';
+        }
+
+        function showReviews() {
+            document.getElementById('product-description').style.display = 'none';
+            document.getElementById('product-reviews').style.display = 'block';
+            document.getElementById('comment-form').style.display = 'block';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="product-container">
+        <div class="product-main">
+            <div class="product-image">
+                <img src="{{product.image.url}}" alt="Product Image">
+            </div>
+            <div class="product-details">
+                <h1 class="product-title">{{product.name}}</h1>
+                <p class="product-price">${{product.price}}</p>
+                <p class="product-info"><strong>Color:</strong> {{product.color}}</p>
+                <p class="product-info"><strong>Size:</strong> {{product.size}}</p>
+                <p class="product-info"><strong>Category:</strong> {{product.category.name}}</p>
+                <p class="product-info"><strong>Brand:</strong> {{product.brand.name}}</p>
+                <p class="product-info"><strong>Stock Count:</strong> {{product.count}}</p>
+                <p class="product-info"><strong>Type:</strong> {{product.types}}</p>
+                <p class="product-info"><strong>Gender:</strong> {{product.gender}}</p>
+                <p class="product-info"><strong>Created Date:</strong> {{product.created_date}}</p>
+                <div class="product-buttons">
+                    <a href="#"><button class="buy-now-button">Buy Now</button></a>
+                    <a href="#"></a><button class="add-to-cart-button">Add to Cart</button>
+                    <a href="{% url 'shop-update' product.id %}"><button class="update-button">Update</button></a>
+                    <a href="{% url 'shop-delete' product.id %}"><button class="delete-button">Delete</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="product-links" style="margin-top: 20px;">
+            <a href="#" onclick="showDescription()">Description</a> |
+            <a href="#" onclick="showReviews()">Reviews</a>
+        </div>
+        <div id="product-description" class="product-description">
+            <h2>Description</h2>
+            <p>
+                {{product.description}}
+            </p>
+        </div>
+        <div id="product-reviews" class="product-reviews" style="display:none;">
+            <h2>Reviews</h2>
+            <div class="review">
+                <p><strong>John Doe:</strong> Great product! Highly recommend.</p>
+                <p class="review-date">Reviewed on January 5, 2024</p>
+            </div>
+            <div class="review">
+                <p><strong>Jane Smith:</strong> Excellent quality and fast shipping.</p>
+                <p class="review-date">Reviewed on January 10, 2024</p>
+            </div>
+            <div class="review">
+                <p><strong>Bob Johnson:</strong> Good value for money. Very satisfied.</p>
+                <p class="review-date">Reviewed on January 15, 2024</p>
+            </div>
+        </div>
+        <div id="comment-form" class="comment-form" style="display:none;">
+            <h2>Leave a Review</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="comment">Review:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
